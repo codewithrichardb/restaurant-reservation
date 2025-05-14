@@ -8,11 +8,11 @@ import { sendEmail } from '@/lib/emailService';
 // GET /api/reservations/[id] - Get a specific reservation
 export async function GET(
   req: NextRequest,
-  context: { params: { id: string } }
+  { params }: { params: { id: string } }
 ) {
   try {
     const session = await getServerSession(authOptions);
-    const id = context.params.id;
+    const id = params.id;
 
     await dbConnect();
 
@@ -49,11 +49,11 @@ export async function GET(
 // PATCH /api/reservations/[id] - Update a reservation
 export async function PATCH(
   req: NextRequest,
-  context: { params: { id: string } }
+  { params }: { params: { id: string } }
 ) {
   try {
     const session = await getServerSession(authOptions);
-    const id = context.params.id;
+    const id = params.id;
     const body = await req.json();
 
     await dbConnect();
@@ -137,11 +137,11 @@ export async function PATCH(
 // DELETE /api/reservations/[id] - Delete a reservation (admin only)
 export async function DELETE(
   req: NextRequest,
-  context: { params: { id: string } }
+  { params }: { params: { id: string } }
 ) {
   try {
     const session = await getServerSession(authOptions);
-    const id = context.params.id;
+    const id = params.id;
 
     // Only admin can delete reservations
     if (session?.user.role !== 'admin') {

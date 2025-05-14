@@ -17,7 +17,7 @@ async function isAdmin() {
 // PATCH assign a table to a reservation
 export async function PATCH(
   req: NextRequest,
-  context: { params: { id: string } }
+  { params }: { params: { id: string } }
 ) {
   try {
     // Check if user is admin
@@ -30,7 +30,7 @@ export async function PATCH(
 
     await dbConnect();
 
-    const { id } = context.params;
+    const { id } = params;
     const { tableId } = await req.json();
 
     // Validate tableId

@@ -16,7 +16,7 @@ async function isAdmin() {
 // GET a single time slot
 export async function GET(
   req: NextRequest,
-  context: { params: { id: string } }
+  { params }: { params: { id: string } }
 ) {
   try {
     // Check if user is admin
@@ -29,7 +29,7 @@ export async function GET(
 
     await dbConnect();
 
-    const timeSlot = await TimeSlot.findById(context.params.id);
+    const timeSlot = await TimeSlot.findById(params.id);
 
     if (!timeSlot) {
       return NextResponse.json(
@@ -51,7 +51,7 @@ export async function GET(
 // PATCH update a time slot
 export async function PATCH(
   req: NextRequest,
-  context: { params: { id: string } }
+  { params }: { params: { id: string } }
 ) {
   try {
     // Check if user is admin
@@ -66,7 +66,7 @@ export async function PATCH(
 
     const data = await req.json();
 
-    const timeSlot = await TimeSlot.findById(context.params.id);
+    const timeSlot = await TimeSlot.findById(params.id);
 
     if (!timeSlot) {
       return NextResponse.json(
@@ -94,7 +94,7 @@ export async function PATCH(
 // DELETE a time slot
 export async function DELETE(
   req: NextRequest,
-  context: { params: { id: string } }
+  { params }: { params: { id: string } }
 ) {
   try {
     // Check if user is admin
@@ -107,7 +107,7 @@ export async function DELETE(
 
     await dbConnect();
 
-    const timeSlot = await TimeSlot.findByIdAndDelete(context.params.id);
+    const timeSlot = await TimeSlot.findByIdAndDelete(params.id);
 
     if (!timeSlot) {
       return NextResponse.json(

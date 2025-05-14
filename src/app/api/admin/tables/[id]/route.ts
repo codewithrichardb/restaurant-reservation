@@ -16,12 +16,12 @@ async function isAdmin() {
 // GET a single table
 export async function GET(
   req: NextRequest,
-  context: { params: { id: string } }
+  { params }: { params: { id: string } }
 ) {
   try {
     await dbConnect();
 
-    const table = await Table.findById(context.params.id);
+    const table = await Table.findById(params.id);
 
     if (!table) {
       return NextResponse.json(
@@ -43,7 +43,7 @@ export async function GET(
 // PATCH update a table (admin only)
 export async function PATCH(
   req: NextRequest,
-  context: { params: { id: string } }
+  { params }: { params: { id: string } }
 ) {
   try {
     // Check if user is admin
@@ -58,7 +58,7 @@ export async function PATCH(
 
     const data = await req.json();
 
-    const table = await Table.findById(context.params.id);
+    const table = await Table.findById(params.id);
 
     if (!table) {
       return NextResponse.json(
@@ -88,7 +88,7 @@ export async function PATCH(
 // DELETE a table (admin only)
 export async function DELETE(
   req: NextRequest,
-  context: { params: { id: string } }
+  { params }: { params: { id: string } }
 ) {
   try {
     // Check if user is admin
@@ -101,7 +101,7 @@ export async function DELETE(
 
     await dbConnect();
 
-    const table = await Table.findByIdAndDelete(context.params.id);
+    const table = await Table.findByIdAndDelete(params.id);
 
     if (!table) {
       return NextResponse.json(

@@ -8,11 +8,11 @@ import User from '@/models/User';
 // POST submit feedback for a reservation
 export async function POST(
   req: NextRequest,
-  context: { params: { id: string } }
+  { params }: { params: { id: string } }
 ) {
   try {
     const session = await getServerSession(authOptions);
-    const { id } = context.params;
+    const { id } = params;
     const data = await req.json();
 
     // Validate required fields

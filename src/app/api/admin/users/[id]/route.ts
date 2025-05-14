@@ -16,7 +16,7 @@ async function isAdmin() {
 // GET a single user
 export async function GET(
   req: NextRequest,
-  context: { params: { id: string } }
+  { params }: { params: { id: string } }
 ) {
   try {
     // Check if user is admin
@@ -51,7 +51,7 @@ export async function GET(
 // PATCH update a user's role
 export async function PATCH(
   req: NextRequest,
-  context: { params: { id: string } }
+  { params }: { params: { id: string } }
 ) {
   try {
     // Check if user is admin
@@ -83,7 +83,7 @@ export async function PATCH(
       );
     }
 
-    const user = await User.findById(context.params.id);
+    const user = await User.findById(params.id);
 
     if (!user) {
       return NextResponse.json(

@@ -16,12 +16,12 @@ async function isAdmin() {
 // GET a single menu item
 export async function GET(
   req: NextRequest,
-  context: { params: { id: string } }
+  { params }: { params: { id: string } }
 ) {
   try {
     await dbConnect();
 
-    const menuItem = await MenuItem.findById(context.params.id);
+    const menuItem = await MenuItem.findById(params.id);
 
     if (!menuItem) {
       return NextResponse.json(
@@ -43,7 +43,7 @@ export async function GET(
 // PATCH update a menu item (admin only)
 export async function PATCH(
   req: NextRequest,
-  context: { params: { id: string } }
+  { params }: { params: { id: string } }
 ) {
   try {
     // Check if user is admin
@@ -58,7 +58,7 @@ export async function PATCH(
 
     const data = await req.json();
 
-    const menuItem = await MenuItem.findById(context.params.id);
+    const menuItem = await MenuItem.findById(params.id);
 
     if (!menuItem) {
       return NextResponse.json(
@@ -93,7 +93,7 @@ export async function PATCH(
 // DELETE a menu item (admin only)
 export async function DELETE(
   req: NextRequest,
-  context: { params: { id: string } }
+  { params }: { params: { id: string } }
 ) {
   try {
     // Check if user is admin
@@ -106,7 +106,7 @@ export async function DELETE(
 
     await dbConnect();
 
-    const menuItem = await MenuItem.findByIdAndDelete(context.params.id);
+    const menuItem = await MenuItem.findByIdAndDelete(params.id);
 
     if (!menuItem) {
       return NextResponse.json(

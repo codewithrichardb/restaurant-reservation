@@ -17,12 +17,12 @@ async function isAdmin() {
 // GET a single waitlist entry
 export async function GET(
   req: NextRequest,
-  context: { params: { id: string } }
+  { params }: { params: { id: string } }
 ) {
   try {
     await dbConnect();
 
-    const waitlistEntry = await Waitlist.findById(context.params.id);
+    const waitlistEntry = await Waitlist.findById(params.id);
 
     if (!waitlistEntry) {
       return NextResponse.json(
@@ -57,16 +57,16 @@ export async function GET(
 // PATCH update a waitlist entry
 export async function PATCH(
   req: NextRequest,
-  context: { params: { id: string } }
+  { params }: { params: { id: string } }
 ) {
   try {
     await dbConnect();
 
     const data = await req.json();
     const session = await getServerSession(authOptions);
-    const isAdmin = await isAdmin();
+    const isAdminUser = await isAdmin();
 
-    const waitlistEntry = await Waitlist.findById(context.params.id);
+    const waitlistEntry = await Waitlist.findById(params.id);
 
     if (!waitlistEntry) {
       return NextResponse.json(
@@ -76,7 +76,7 @@ export async function PATCH(
     }
 
     // Only allow updates if admin or if the entry belongs to the logged-in user
-    if (!isAdmin && (!session || waitlistEntry.user?.toString() !== session.user.id)) {
+    if (!isAdminUser && (!session || waitlistEntry.user?.toString() !== session.user.id)) {
       return NextResponse.json(
         { error: 'Unauthorized' },
         { status: 401 }
@@ -84,7 +84,7 @@ export async function PATCH(
     }
 
     // Regular users can only cancel their own entries
-    if (!isAdmin && data.status && data.status !== 'cancelled') {
+    if (!isAdminUser && data.status && data.status !== 'cancelled') {
       return NextResponse.json(
         { error: 'You can only cancel your waitlist entry' },
         { status: 403 }
@@ -96,7 +96,7 @@ export async function PATCH(
     const originalNotified = waitlistEntry.notified;
 
     // Update waitlist entry
-    if (isAdmin) {
+    if (isAdminUser) {
       // Admins can update all fields
       if (data.name !== undefined) waitlistEntry.name = data.name;
       if (data.email !== undefined) waitlistEntry.email = data.email;
@@ -113,7 +113,7 @@ export async function PATCH(
     await waitlistEntry.save();
 
     // Send notification if status changed to 'seated' and not previously notified
-    if (isAdmin &&
+    if (isAdminUser &&
         waitlistEntry.status === 'seated' &&
         (originalStatus !== 'seated' || !originalNotified)) {
 
@@ -154,7 +154,7 @@ export async function PATCH(
 // DELETE a waitlist entry (admin only)
 export async function DELETE(
   req: NextRequest,
-  context: { params: { id: string } }
+  { params }: { params: { id: string } }
 ) {
   try {
     // Check if user is admin
@@ -167,7 +167,7 @@ export async function DELETE(
 
     await dbConnect();
 
-    const waitlistEntry = await Waitlist.findByIdAndDelete(context.params.id);
+    const waitlistEntry = await Waitlist.findByIdAndDelete(params.id);
 
     if (!waitlistEntry) {
       return NextResponse.json(

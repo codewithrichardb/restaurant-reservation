@@ -16,7 +16,7 @@ async function isAdmin() {
 // GET a specific email template by ID (admin only)
 export async function GET(
   req: NextRequest,
-  context: { params: { id: string } }
+  { params }: { params: { id: string } }
 ) {
   try {
     // Check if user is admin
@@ -29,7 +29,7 @@ export async function GET(
 
     await dbConnect();
 
-    const { id } = context.params;
+    const { id } = params;
 
     // Find template by ID
     const template = await EmailTemplate.findById(id);
@@ -54,7 +54,7 @@ export async function GET(
 // PATCH update a specific email template (admin only)
 export async function PATCH(
   req: NextRequest,
-  context: { params: { id: string } }
+  { params }: { params: { id: string } }
 ) {
   try {
     // Check if user is admin
@@ -67,7 +67,7 @@ export async function PATCH(
 
     await dbConnect();
 
-    const { id } = context.params;
+    const { id } = params;
     const data = await req.json();
 
     // Find template by ID
@@ -107,7 +107,7 @@ export async function PATCH(
 // DELETE a specific email template (admin only)
 export async function DELETE(
   req: NextRequest,
-  context: { params: { id: string } }
+  { params }: { params: { id: string } }
 ) {
   try {
     // Check if user is admin
@@ -120,7 +120,7 @@ export async function DELETE(
 
     await dbConnect();
 
-    const { id } = context.params;
+    const { id } = params;
 
     // Find and delete template
     const template = await EmailTemplate.findByIdAndDelete(id);
