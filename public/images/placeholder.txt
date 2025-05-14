@@ -1,0 +1,16 @@
+This directory should contain the following images:
+- restaurant-bg.jpg (for the hero section background)
+- restaurant-interior.jpg (for the about section)
+- dish1.jpg, dish2.jpg, dish3.jpg (for the featured menu items)
+
+For development purposes, you can use placeholder images from services like:
+- https://placeholder.com/
+- https://picsum.photos/
+- https://placehold.co/
+
+Example URLs:
+- https://placehold.co/1200x600/333/fff?text=Restaurant+Background
+- https://placehold.co/600x400/333/fff?text=Restaurant+Interior
+- https://placehold.co/400x300/333/fff?text=Dish+1
+- https://placehold.co/400x300/333/fff?text=Dish+2
+- https://placehold.co/400x300/333/fff?text=Dish+3

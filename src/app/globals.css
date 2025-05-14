@@ -1,0 +1,86 @@
+/* Custom styles */
+.font-serif {
+  font-family: var(--font-playfair), serif;
+}
+
+.hero-section {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/images/hero-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  color: white;
+  padding: 100px 0;
+}
+
+/* Calendar styles */
+.calendar-table th, .calendar-table td {
+  min-width: 120px;
+}
+
+.calendar-cell {
+  min-height: 60px;
+  max-height: 120px;
+  overflow-y: auto;
+}
+
+.calendar-cell-empty {
+  min-height: 60px;
+}
+
+.calendar-event {
+  font-size: 0.8rem;
+  border-left: 3px solid rgba(255, 255, 255, 0.7);
+}
+
+.calendar-event:hover {
+  opacity: 0.9;
+}
+
+/* Dark mode styles */
+[data-bs-theme="dark"] {
+  --bs-body-bg: #121212;
+  --bs-body-color: #e0e0e0;
+  --bs-border-color: #2d2d2d;
+}
+
+[data-bs-theme="dark"] .card {
+  background-color: #1e1e1e;
+  border-color: #2d2d2d;
+}
+
+[data-bs-theme="dark"] .bg-light {
+  background-color: #252525 !important;
+}
+
+[data-bs-theme="dark"] .text-muted {
+  color: #a0a0a0 !important;
+}
+
+[data-bs-theme="dark"] .navbar-dark {
+  background-color: #1a1a1a !important;
+}
+
+[data-bs-theme="dark"] .dropdown-menu {
+  background-color: #1e1e1e;
+  border-color: #2d2d2d;
+}
+
+[data-bs-theme="dark"] .dropdown-item:hover {
+  background-color: #2d2d2d;
+}
+
+[data-bs-theme="dark"] .table {
+  --bs-table-color: #e0e0e0;
+  --bs-table-border-color: #2d2d2d;
+}
+
+[data-bs-theme="dark"] .form-control,
+[data-bs-theme="dark"] .form-select {
+  background-color: #252525;
+  border-color: #2d2d2d;
+  color: #e0e0e0;
+}
+
+[data-bs-theme="dark"] .modal-content {
+  background-color: #1e1e1e;
+  border-color: #2d2d2d;
+}
