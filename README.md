@@ -91,8 +91,45 @@ You can customize these credentials in the `.env.local` file.
 - `/src/utils` - Utility functions
 - `/public` - Static assets
 
-## Deployment
+## Deployment to Vercel
 
-This project can be easily deployed on Vercel:
+### Prerequisites
+
+1. A MongoDB database (e.g., MongoDB Atlas)
+2. A Vercel account
+3. An SMTP server for sending emails
+
+### Environment Variables
+
+Set the following environment variables in your Vercel project settings:
+
+- `MONGODB_URI`: Your MongoDB connection string
+- `NEXTAUTH_SECRET`: A secret for NextAuth.js (generate a random string)
+- `NEXTAUTH_URL`: The URL of your Vercel deployment (will be set automatically by Vercel)
+- `EMAIL_HOST`: SMTP server host
+- `EMAIL_PORT`: SMTP server port
+- `EMAIL_SECURE`: Whether to use TLS (true/false)
+- `EMAIL_USER`: SMTP server username
+- `EMAIL_PASSWORD`: SMTP server password
+- `EMAIL_FROM`: From email address for sent emails
+- `ADMIN_EMAIL`: Email for the initial admin user
+- `ADMIN_PASSWORD`: Password for the initial admin user
+- `CRON_API_KEY`: API key for cron jobs (if used)
+
+### Deployment Steps
+
+1. Fork or clone this repository
+2. Connect your GitHub repository to Vercel
+3. Configure the environment variables in Vercel
+4. Deploy the project
+
+### Troubleshooting
+
+If you encounter a 500 internal server error after deployment:
+
+1. Check that all environment variables are set correctly in Vercel
+2. Verify that your MongoDB connection string is correct and the database is accessible
+3. Check the Vercel logs for any specific error messages
+4. Make sure your MongoDB IP allowlist includes Vercel's IP ranges
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fyourusername%2Frestaurant-reservation)

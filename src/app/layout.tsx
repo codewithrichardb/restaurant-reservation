@@ -19,7 +19,14 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const session = await getServerSession(authOptions);
+  // Try to get the session, but handle errors gracefully
+  let session = null;
+  try {
+    session = await getServerSession(authOptions);
+  } catch (error) {
+    console.error('Error getting server session:', error);
+    // Continue without session
+  }
 
   return (
     <html lang="en">

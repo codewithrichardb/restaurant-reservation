@@ -15,6 +15,15 @@ const nextConfig = {
   },
   // Increase the timeout for builds
   staticPageGenerationTimeout: 180,
+  // Add runtime configuration
+  poweredByHeader: false,
+  // Add error handling for runtime errors
+  onDemandEntries: {
+    // Keep pages in memory for 5 minutes
+    maxInactiveAge: 5 * 60 * 1000,
+    // Have 10 pages in memory at most
+    pagesBufferLength: 10,
+  },
 };
 
 module.exports = nextConfig;
