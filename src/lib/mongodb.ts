@@ -1,8 +1,11 @@
 import mongoose from 'mongoose';
 
+// Skip MongoDB connection during build
+const isNextBuild = process.env.NODE_ENV === 'production' && process.env.NEXT_PHASE === 'phase-production-build';
+
 const MONGODB_URI = process.env.MONGODB_URI || '';
 
-if (!MONGODB_URI) {
+if (!MONGODB_URI && !isNextBuild) {
   throw new Error(
     'Please define the MONGODB_URI environment variable inside .env.local'
   );
@@ -20,6 +23,11 @@ if (!cached) {
 }
 
 async function dbConnect() {
+  // Return a mock connection during build
+  if (isNextBuild) {
+    return { connection: { readyState: 1 } };
+  }
+
   if (cached.conn) {
     return cached.conn;
   }
